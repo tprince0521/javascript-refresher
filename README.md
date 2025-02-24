@@ -1,1 +1,3 @@
-# javascript-refresher
+# Javascript Refresher
+
+My First Repo
