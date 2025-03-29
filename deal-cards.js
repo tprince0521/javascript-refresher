@@ -17,5 +17,10 @@ for (let i = 2; i < 11; i++) {
 }
 
 
+deck[0].suit
+
+deck.push()
+
+
 console.log(deck)
 
