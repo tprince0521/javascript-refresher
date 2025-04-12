@@ -1,7 +1,12 @@
 
 let currentPlayer = 0
 let pig1
-let pig2 
+let pig2
+let score = 0
+let player0Score
+let player1Score
+let player2Score
+let player3Score
 
 function handleClick(id) {
     console.log(id)
@@ -25,13 +30,18 @@ function Pass() {
 
 function Roll() {
     console.log("player " + currentPlayer + " rolled")
-pig1 = pigRoll()
-pig2 = pigRoll()
+    pig1 = pigRoll()
+    pig2 = pigRoll()
 
     console.log(pig1)
     console.log(pig2)
 
     updatePigs()
+
+  scorePigs()
+
+    console.log(score)
+
 
 }
 
@@ -59,7 +69,7 @@ function pigRoll() {
     } else if (randomDigit < 0.875) {
         return "razorback"
     } else if (randomDigit < 0.963) {
-        return "trotter" 
+        return "trotter"
     } else if (randomDigit < 0.993) {
         return "snouter"
     } else if (randomDigit < 1) {
@@ -70,7 +80,32 @@ function pigRoll() {
 
 function updatePigs() {
 
-document.getElementById("player" + currentPlayer + "Pig1").innerHTML = pig1
-document.getElementById("player" + currentPlayer + "Pig2").innerHTML = pig2
+    document.getElementById("player" + currentPlayer + "Pig1").innerHTML = pig1
+    document.getElementById("player" + currentPlayer + "Pig2").innerHTML = pig2
+
+}
+
+function scorePigs() {
+    if (pig1 == "dot" && pig2 == "dot") {
+        score = score + 1
+    } else if (pig1 == "no dot" && pig2 == "no dot") {
+        score = score + 1
+    } else if (pig1 == "dot" || "no dot" && pig2 == "trotter" || "razorback") {
+        score = score + 5
+    } else if (pig2 == "dot" || "no dot" && pig1 == "trotter" || "razorback") {
+        score = score + 1000000
+    } else if ((pig1 == "razorback" && pig2 == "razorback") || (pig2 == "trotter" && pig1 == "trotter")) {
+        score = score + 20
+    } else if ((pig1 == "razorback" && pig2 == "trotter") || (pig2 == "razorback" && pig1 == "trotter")) {
+        score = score + 10
+    }
+
+    document.getElementById("player" + currentPlayer + "HandScore").innerHTML = "Score:" + score
+
+    if (pig1 == "no dot" && pig2 == "dot" || pig2 == "no dot" && pig1 == "dot") {
+        document.getElementById("player" + currentPlayer + "HandScore").innerHTML = "Pig out!"
+        score = 0
+        Pass()
+    }
 
 }
